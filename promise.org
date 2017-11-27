@@ -1,0 +1,101 @@
+* Promises
+Promises are alternative to callbacks for delivering result of an 
+asynchronous computation.
+function asyncFunc () {
+  return new Promise(
+    function (resolve, reject) {
+      resolve(result)
+      reject(error)
+    })
+}
+asyncFunc()
+.then(result => {...})
+.catch(error => {...})
+
+* A Promise is one of these states
+** Pending
+** Fulfilled
+** Rejected
+A pending promise can either be fulfilled with a value, or rejected
+with a reason.
+
+* Properties
+
+** Promise.length
+Length property whose value is always 1 (number of constructor
+arguments).
+** Promise.prototype
+Represents the prototype for the promise constructor.
+
+
+* Promise Methods
+
+** Promise.all(iterable)
+Returns a promise that either fulfills when all of the promises in the
+iterable arguments have fulfilled or reject as soon as one of the 
+promises in the iterable arguments rejects.
+
+If the promise fulfills, it is fulfilled with an array of the values
+from the fullfilled promises in the same order as iterables.
+
+If the returned promise rejects, it is rejected with the reason from 
+the first promise in the iterable that rejected.
+
+** Promise.race(iterable)
+Returns a promise that fulfills or rejects as soon as one of the
+promises in the iterable fulfills or rejects, with value or reason
+from that promise.
+
+** Promise.reject(reason)
+Returns promise object that is rejected with the given reason.
+
+** Promise.resolve(value)
+Returns a promise object that is reolved with the given value.
+
+* Promise prototype
+
+** Properties
+*** Promise.prototype.constructor
+Returns the function that created an instance's prototype. This is the
+promise function by default.
+
+** Methods
+*** Promise.prototype.catch(onRejected)
+Appends a rejection handler callback to the promise, and returns a 
+new promise resolving to the return value of the callback if it is
+called, or to its original fulfillment value if the promise is
+instead fulfilled.
+
+*** Promise.prototype.then(onFulfilled, onRejected)
+Appends fulfillment and rejection handlers to the promise, and returns
+a new promise resolving to the return value of the called handler,
+or to its original settled value if the promise was not handled
+(i.e. if the relevant handler onFulfilled or onRejected is not a
+function).
+
+*** Promise.prototype.finally(onFinally)
+Appends a handler to the promise, and returns a new promise which is
+resolved when the original promise is resolved. The handler is called
+when the promise is settled, whether fulfilled or rejected.
+
+* Promises following the spec must follow a specific set of rules:
+** A promise or “thenable” is an object that supplies a standard-compliant .then() method.
+** A pending promise may transition into a fulfilled or rejected state.
+** A fulfilled or rejected promise is settled, and must not transition into any other state.
+** Once a promise is settled, it must have a value (which may be undefined). That value must not change.
+
+* The .then() method must comply with these rules:
+** Both onFulfilled() and onRejected() are optional.
+** If the arguments supplied are not functions, they must be ignored.
+** onFulfilled() will be called after the promise is fulfilled, with the promise’s value as the first argument.
+** onRejected() will be called after the promise is rejected, with the reason for rejection as the first argument.
+*** The reason may be any valid JavaScript value, but because rejections are essentially synonymous with exceptions,
+*** I recommend using Error objects.
+** Neither onFulfilled() nor onRejected() may be called more than once.
+** .then() may be called many times on the same promise. In other words, a promise can be used to aggregate callbacks.
+** .then() must return a new promise, promise2.
+** If onFulfilled() or onRejected() return a value x, and x is a promise, promise2 will lock in with
+*** (assume the same state and value as) x. Otherwise, promise2 will be fulfilled with the value of x.
+** If either onFulfilled or onRejected throws an exception e, promise2 must be rejected with e as the reason.
+** If onFulfilled is not a function and promise1 is fulfilled, promise2 must be fulfilled with the same value as promise1.
+** If onRejected is not a function and promise1 is rejected, promise2 must be rejected with the same reason as promise1.
