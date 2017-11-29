@@ -3,9 +3,6 @@ const fulfilled = 1
 const rejected = 2
 
 function MyPromise (fn) {
-  if (typeof this !== 'object') {
-    throw new TypeError('Promises must be constructed via new')
-  }
   if (typeof fn !== 'function') {
     throw new TypeError('fn must be a function')
   }
