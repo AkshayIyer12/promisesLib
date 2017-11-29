@@ -3,6 +3,9 @@ const fulfilled = 1
 const rejected = 2
 
 function MyPromise (fn) {
+  if (typeof this !== 'object') {
+    throw new TypeError('Promises must be constructed via new')
+  }
   if (typeof fn !== 'function') {
     throw new TypeError('fn must be a function')
   }
@@ -42,11 +45,11 @@ function MyPromise (fn) {
       handlers.push(handler)
     } else {
       if (state === fulfilled &&
-      typeof handler.onFulfilled === 'function') {
+        typeof handler.onFulfilled === 'function') {
         handler.onFulfilled(value)
       }
       if (state === rejected &&
-      typeof handler.onRejected === 'function') {
+        typeof handler.onRejected === 'function') {
         handler.onRejected(value)
       }
     }
@@ -62,7 +65,7 @@ function MyPromise (fn) {
 
   this.then = function (onFulfilled, onRejected) {
     let self = this
-    return new Promise(function (resolve, reject) {
+    return new MyPromise(function (resolve, reject) {
       return self.done(function (result) {
         if (typeof onFulfilled === 'function') {
           try {
@@ -86,11 +89,27 @@ function MyPromise (fn) {
       })
     })
   }
+
+  this.catch = function (onRejected) {
+    let self = this
+    return self.then(undefined, onRejected)
+  }
+  this.all = function (arr) {
+    let args = Array.from(arr)
+    return new MyPromise(function (resolve, reject) {
+      if (args.length === 0) {
+        return resolve([])
+      }
+      let remaining = args.length
+      console.log(remaining)
+    })
+  }
   doResolve(fn, resolve, reject)
 }
 
 function getThen (result) {
-  if (result && (typeof result === 'object' || typeof result === 'function')) {
+  if (result && (typeof result === 'object' ||
+    typeof result === 'function')) {
     let then = result.then
     if (typeof then === 'function') {
       return then
@@ -117,21 +136,4 @@ function doResolve (fn, onFulfilled, onRejected) {
     onRejected(ex)
   }
 }
-
-let p = new MyPromise((resolve, reject) => {
-  let timeString = Date.now()
-  setTimeout(() => {
-    return resolve(timeString)
-  }, 2500)
-})
-p.then(new Promise((resolve, reject) => {
-  let timeString = Date.now()
-  setTimeout(() => {
-    return resolve('Old' + timeString)
-  }, 2501)
-})).then(display)
-
-function display (value) {
-  console.log('Value ', value)
-  return value
-}
+module.exports = MyPromise
