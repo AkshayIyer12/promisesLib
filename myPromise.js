@@ -94,16 +94,6 @@ function MyPromise (fn) {
     let self = this
     return self.then(undefined, onRejected)
   }
-  this.all = function (arr) {
-    let args = Array.from(arr)
-    return new MyPromise(function (resolve, reject) {
-      if (args.length === 0) {
-        return resolve([])
-      }
-      let remaining = args.length
-      console.log(remaining)
-    })
-  }
   doResolve(fn, resolve, reject)
 }
 
