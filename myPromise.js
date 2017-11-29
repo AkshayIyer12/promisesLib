@@ -1,4 +1,6 @@
-let pending = 0, fulfilled = 1, rejected = 2
+const pending = 0
+const fulfilled = 1
+const rejected = 2
 
 function MyPromise (fn) {
   if (typeof this !== 'object') {
@@ -14,14 +16,14 @@ function MyPromise (fn) {
   function fulfill (result) {
     state = fulfilled
     value = result
-    handlers.map(handle)
+    handlers.forEach(handle)
     handlers = null
   }
 
   function reject (error) {
     state = rejected
     value = error
-    handlers.map(handle)
+    handlers.forEach(handle)
     handlers = null
   }
 
@@ -42,12 +44,12 @@ function MyPromise (fn) {
     if (state === pending) {
       handlers.push(handler)
     } else {
-      if (state === fulfilled && 
-      typeof handler === 'function') {
+      if (state === fulfilled &&
+      typeof handler.onFulfilled === 'function') {
         handler.onFulfilled(value)
       }
-      if (state === rejected && 
-      typeof handler === 'function') {
+      if (state === rejected &&
+      typeof handler.onRejected === 'function') {
         handler.onRejected(value)
       }
     }
@@ -55,8 +57,35 @@ function MyPromise (fn) {
   this.done = function (onFulfilled, onRejected) {
     process.nextTick(function () {
       handle({
-        onFulfilled,
-        onRejected
+        onFulfilled: onFulfilled,
+        onRejected: onRejected
+      })
+    })
+  }
+
+  this.then = function (onFulfilled, onRejected) {
+    let self = this
+    return new Promise(function (resolve, reject) {
+      return self.done(function (result) {
+        if (typeof onFulfilled === 'function') {
+          try {
+            return resolve(onFulfilled(result))
+          } catch (ex) {
+            return reject(ex)
+          }
+        } else {
+          resolve(result)
+        }
+      }, function (error) {
+        if (typeof onRejected === 'function') {
+          try {
+            return resolve(onRejected(error))
+          } catch (ex) {
+            return reject(ex)
+          }
+        } else {
+          return reject(error)
+        }
       })
     })
   }
@@ -90,4 +119,22 @@ function doResolve (fn, onFulfilled, onRejected) {
     done = true
     onRejected(ex)
   }
+}
+
+let p = new MyPromise((resolve, reject) => {
+  let timeString = Date.now()
+  setTimeout(() => {
+    return resolve(timeString)
+  }, 2500)
+})
+p.then(new Promise((resolve, reject) => {
+  let timeString = Date.now()
+  setTimeout(() => {
+    return resolve('Old' + timeString)
+  }, 2501)
+})).then(display)
+
+function display (value) {
+  console.log('Value ', value)
+  return value
 }
