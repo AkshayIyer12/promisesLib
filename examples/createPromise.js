@@ -13,11 +13,11 @@ let p = new MyPromise(function (resolve, reject) {
 p.then(display).catch(displayNum)
 
 function display (value) {
-  console.log(value)
+  console.log('I am even', value)
   return value
 }
 
 function displayNum (value) {
-  console.log('Caught ', value)
+  console.log('I am odd', value)
   return value
 }
