@@ -16,7 +16,7 @@ MyPromise.resolve = function (value) {
       })
     }
   }
-  return new Promise(function (resolve, reject) {
+  return new MyPromise(function (resolve, reject) {
     resolve(value)
   })
 }
@@ -24,6 +24,32 @@ MyPromise.resolve = function (value) {
 MyPromise.reject = function (value) {
   return new MyPromise(function (resolve, reject) {
     reject(value)
+  })
+}
+
+MyPromise.all = function (arr) {
+  let promises = Array.from(arr)
+  return new MyPromise(function (resolve, reject) {
+    if (promises.length === 0) {
+      resolve(promises)
+    }
+    let collector = [], pending = promises.length
+    for (let i = 0; i < promises.length; i++) {
+      if (typeof promises[i] !== 'object') {
+        promises[i] = new MyPromise(function (resolve, reject) {
+          resolve(promises[i])
+        })
+      }
+      promises[i].then(function (result) {
+        collector.push(result)
+        pending -= 1
+        if (pending === 0) {
+          resolve(collector)
+        }
+      }, function (error) {
+        reject(error)
+      })
+    }
   })
 }
 
