@@ -9,9 +9,7 @@ A basic implementation of JavaScript Promises.
 Do keep in mind to `require` the core `MyPromise` as well.
 
 ### How to create a MyPromise?
-```new MyPromise(function (resolve, reject) {
-   ...
-})```
+```new MyPromise(function (resolve, reject) {})```
 
 ### What in-built functions does it have?
 * then()
