@@ -10,11 +10,15 @@ let p = new MyPromise(function (resolve, reject) {
     }
   }, 3000)
 })
-p.then(display).catch(displayNum)
+p.then(display)
+.then(display)
+.then(display)
+.then(display)
+.catch(displayNum)
 
 function display (value) {
   console.log('I am even', value)
-  return value
+  return value + 1
 }
 
 function displayNum (value) {
