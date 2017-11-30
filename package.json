@@ -1,0 +1,31 @@
+{
+  "name": "promiseslib",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/myPromise.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AkshayIyer12/promisesLib.git"
+  },
+  "keywords": [
+    "promise",
+    "javascript",
+    "promise.resolve",
+    "promise.reject",
+    "then",
+    "catch",
+    "promise.all"
+  ],
+  "author": "Akshay Iyer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AkshayIyer12/promisesLib/issues"
+  },
+  "homepage": "https://github.com/AkshayIyer12/promisesLib#readme"
+}
