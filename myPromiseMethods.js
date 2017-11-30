@@ -21,4 +21,10 @@ MyPromise.resolve = function (value) {
   })
 }
 
-module.exports = MyPromise.resolve
+MyPromise.reject = function (value) {
+  return new MyPromise(function (resolve, reject) {
+    reject(value)
+  })
+}
+
+module.exports = MyPromise
