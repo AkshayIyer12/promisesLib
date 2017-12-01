@@ -31,7 +31,8 @@ Yes, it supports chaining.
 [MyPromise Examples](https://github.com/AkshayIyer12/promisesLib/tree/master/examples)
 
 ### Found a bug!
-Issue Format:```
+Issue Format:
+```
 Issue: Give a one line description of the issue.
 Description: Exlain the issue over here, try to keep it to the point.
 Sample Code: Source Code link in which you found the issue.
