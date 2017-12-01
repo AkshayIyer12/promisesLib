@@ -26,3 +26,6 @@ Do keep in mind to `require` the core `MyPromise` as well.
  
 ### Does it support chaining?
 Yes, it supports chaining.
+
+### Do you have examples for the above implementation of Promise?
+[MyPromise Examples](https://github.com/AkshayIyer12/promisesLib/tree/master/examples)
