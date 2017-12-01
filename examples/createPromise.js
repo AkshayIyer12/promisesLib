@@ -15,6 +15,10 @@ p.then(display)
 .then(display)
 .then(display)
 .catch(displayNum)
+.finally(() => {
+  console.log(20)
+  return 300
+})
 
 function display (value) {
   console.log('I am even', value)
