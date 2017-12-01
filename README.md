@@ -29,3 +29,14 @@ Yes, it supports chaining.
 
 ### Do you have examples for the above implementation of Promise?
 [MyPromise Examples](https://github.com/AkshayIyer12/promisesLib/tree/master/examples)
+
+### Found a bug!
+Issue Format:```
+Issue: Give a one line description of the issue.
+Description: Exlain the issue over here, try to keep it to the point.
+Sample Code: Source Code link in which you found the issue.
+```
+File an issue at [Issues](https://github.com/AkshayIyer12/promisesLib/issues/new)
+
+### Want to contribute
+Send a PR at [PR](https://github.com/AkshayIyer12/promisesLib/pulls)
