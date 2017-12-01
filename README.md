@@ -40,4 +40,6 @@ Sample Code: Source Code link in which you found the issue.
 File an issue at [Issues](https://github.com/AkshayIyer12/promisesLib/issues/new)
 
 ### Want to contribute
-Send a PR at [PR](https://github.com/AkshayIyer12/promisesLib/pulls)
+Send a PR at [Pull Requests](https://github.com/AkshayIyer12/promisesLib/pulls)
+Happy Coding!
+The force is strong in you.
