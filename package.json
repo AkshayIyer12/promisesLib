@@ -20,7 +20,8 @@
     "promise.reject",
     "then",
     "catch",
-    "promise.all"
+    "promise.all",
+    "finally"
   ],
   "author": "Akshay Iyer",
   "license": "MIT",
