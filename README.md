@@ -2,9 +2,8 @@
 A basic implementation of JavaScript Promises.
 Implemented with reference to:
 1. [Promises/A+ Spec](https://promisesaplus.com/)
-2. [Promise as a State Machine](https://www.promisejs.org/implementing/)
-3. [q Designs](https://github.com/kriskowal/q/tree/master/design)
-4. [Promise Core](https://github.com/then/promise/blob/master/src/core.js)
+2. [q Designs](https://github.com/kriskowal/q/tree/master/design)
+3. [Promise Core](https://github.com/then/promise/blob/master/src/core.js)
 ### How to require MyPromise?
 ```require('./lib/myPromise')```
 
